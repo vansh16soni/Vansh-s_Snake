@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>SERPENT — Snake Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button id="theme-toggle" aria-label="Toggle theme">
+  <span class="toggle-icon" id="toggle-icon">🌙</span>
+  <div class="toggle-track">
+    <div class="toggle-thumb"></div>
+  </div>
+  <span id="toggle-label">DARK</span>
+</button>
+
+<div id="app">
+
+  <!-- Header -->
+  <div id="header">
+    <div id="title">SERPENT</div>
+    <div id="subtitle">retro arcade · 18 × 18</div>
+  </div>
+
+  <!-- Scoreboard -->
+  <div id="scoreboard">
+    <div class="score-pill">
+      <div class="score-label">SCORE</div>
+      <div class="score-val" id="scoreBox">0</div>
+    </div>
+    <div class="score-pill">
+      <div class="score-label">BEST</div>
+      <div class="score-val" id="hiscoreBox">0</div>
+    </div>
+  </div>
+
+  <!-- Board -->
+  <div id="board-wrap">
+    <div id="board"></div>
+
+    <!-- Start overlay -->
+    <div class="overlay visible" id="start-overlay">
+      <div class="overlay-title">READY?</div>
+      <div class="overlay-sub">Press any arrow key<br/>or tap START to play</div>
+      <button class="btn" id="start-btn">START</button>
+    </div>
+
+    <!-- Pause overlay -->
+    <div class="overlay" id="pause-overlay">
+      <div class="overlay-title">PAUSED</div>
+      <div class="overlay-sub">Press SPACE or tap RESUME</div>
+      <button class="btn" id="resume-btn">RESUME</button>
+    </div>
+
+    <!-- Game Over overlay -->
+    <div class="overlay" id="gameover-overlay">
+      <div class="overlay-title">GAME OVER</div>
+      <div class="overlay-score-row">
+        <div class="overlay-score-box">
+          <div class="label">SCORE</div>
+          <div class="val" id="final-score">0</div>
+        </div>
+        <div class="overlay-score-box">
+          <div class="label">BEST</div>
+          <div class="val" id="final-hiscore">0</div>
+        </div>
+      </div>
+      <button class="btn danger" id="restart-btn">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <!-- Controls bar -->
+  <div id="controls-bar">
+    <button class="btn" id="pause-btn" style="display:none">PAUSE</button>
+    <div id="status-badge">READY</div>
+  </div>
+
+  <!-- Touch D-Pad -->
+  <div id="dpad">
+    <div class="dpad-row">
+      <div class="dpad-spacer"></div>
+      <div class="dpad-btn" data-dir="UP">▲</div>
+      <div class="dpad-spacer"></div>
+    </div>
+    <div class="dpad-row">
+      <div class="dpad-btn" data-dir="LEFT">◀</div>
+      <div class="dpad-spacer"></div>
+      <div class="dpad-btn" data-dir="RIGHT">▶</div>
+    </div>
+    <div class="dpad-row">
+      <div class="dpad-spacer"></div>
+      <div class="dpad-btn" data-dir="DOWN">▼</div>
+      <div class="dpad-spacer"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="./js/index.js"></script>
+</body>
+</html>
