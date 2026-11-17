@@ -1,13 +1,11 @@
-/* ════════════════════════════════════════════════════════════════
-   SERPENT — Snake Game Logic
-   ════════════════════════════════════════════════════════════════ */
+// Serpent snake game logic
 
 const GRID        = 18;
 const SPEED_MS    = 100;
 const LS_KEY      = 'serpent_hiscore';
 const LS_THEME    = 'serpent_theme';
 
-/* ── DOM ──────────────────────────────────────────────────────── */
+// DOM element references
 const boardEl         = document.getElementById('board');
 const scoreBoxEl      = document.getElementById('scoreBox');
 const hiscoreBoxEl    = document.getElementById('hiscoreBox');
@@ -24,7 +22,7 @@ const restartBtn      = document.getElementById('restart-btn');
 const boardWrap       = document.getElementById('board-wrap');
 const themeToggle     = document.getElementById('theme-toggle');
 
-/* ── THEME ────────────────────────────────────────────────────── */
+// Theme switcher (dark and light mode)
 (function initTheme() {
   const saved = localStorage.getItem(LS_THEME) || 'dark';
   applyTheme(saved, false);
@@ -49,7 +47,7 @@ themeToggle.addEventListener('click', () => {
   applyTheme(current === 'dark' ? 'light' : 'dark');
 });
 
-/* ── AUDIO ────────────────────────────────────────────────────── */
+// Sound effects and background music
 function makeAudio(src, fallbackSrc) {
   const a = new Audio(src);
   a.preload = 'auto';
@@ -90,7 +88,7 @@ function startMusic() {
   bgMusic.play().catch(() => {});
 }
 
-/* ── CELLS ────────────────────────────────────────────────────── */
+// Generate 18x18 grid cells
 const cells = [];
 (function buildGrid() {
   for (let i = 0; i < GRID * GRID; i++) {
@@ -104,7 +102,7 @@ const cells = [];
 function idx(row, col) { return row * GRID + col; }
 function clearCellClasses(el) { el.className = 'cell'; }
 
-/* ── GAME STATE ───────────────────────────────────────────────── */
+// Game state variables and initialization
 let snake, dir, nextDir, food, score, hiscore, gameLoop;
 let state = 'idle'; // idle | playing | paused | dead
 let inputQueue = [];
@@ -160,7 +158,7 @@ function placeFood() {
   }
 }
 
-/* ── RENDER ───────────────────────────────────────────────────── */
+// Render snake and food on the grid
 function render() {
   cells.forEach(c => clearCellClasses(c));
   if (food) {
@@ -182,7 +180,7 @@ function render() {
   }
 }
 
-/* ── SCORE UI ─────────────────────────────────────────────────── */
+// Update score display on screen
 function updateScoreUI(bump) {
   scoreBoxEl.textContent   = score;
   hiscoreBoxEl.textContent = hiscore;
@@ -193,7 +191,7 @@ function updateScoreUI(bump) {
   }
 }
 
-/* ── FLOATING +1 ──────────────────────────────────────────────── */
+// Floating +1 animation when food is eaten
 function spawnFloatScore(r, c) {
   const boardRect = boardEl.getBoundingClientRect();
   const wrapRect  = boardWrap.getBoundingClientRect();
@@ -211,7 +209,7 @@ function spawnFloatScore(r, c) {
   setTimeout(() => el.remove(), 900);
 }
 
-/* ── GAME TICK ────────────────────────────────────────────────── */
+// Main game tick loop: move snake and check collisions
 function tick() {
   const prevDir = dir;
   if (inputQueue.length > 0) {
@@ -256,7 +254,7 @@ function tick() {
   }
 }
 
-/* ── GAME FLOW ────────────────────────────────────────────────── */
+// Game flow: start, end, pause, and resume
 function startGame() {
   if (gameLoop) clearInterval(gameLoop);
   if (gameOverTimer) clearTimeout(gameOverTimer);
@@ -343,7 +341,7 @@ function setStatusBadge(s) {
   else                      { statusBadge.textContent = 'READY'; }
 }
 
-/* ── DIRECTION MAP ────────────────────────────────────────────── */
+// Direction vectors and turn handling
 const DIR_MAP = {
   ArrowUp:    { r: -1, c:  0 },
   ArrowDown:  { r:  1, c:  0 },
@@ -382,7 +380,7 @@ function handleDir(key) {
   return false;
 }
 
-/* ── KEYBOARD ─────────────────────────────────────────────────── */
+// Keyboard controls (arrow keys and spacebar)
 document.addEventListener('keydown', e => {
   if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
     e.preventDefault();
@@ -403,13 +401,13 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ── BUTTONS ──────────────────────────────────────────────────── */
+// Button click handlers
 startBtn.addEventListener('click',   () => startGame());
 resumeBtn.addEventListener('click',  () => resumeGame());
 restartBtn.addEventListener('click', () => startGame());
 pauseBtn.addEventListener('click',   () => togglePause());
 
-/* ── TOUCH D-PAD ──────────────────────────────────────────────── */
+// Mobile on-screen touch D-pad
 document.querySelectorAll('.dpad-btn').forEach(btn => {
   btn.addEventListener('touchstart', e => {
     e.preventDefault();
@@ -418,7 +416,7 @@ document.querySelectorAll('.dpad-btn').forEach(btn => {
   btn.addEventListener('click', () => handleDir(btn.dataset.dir));
 });
 
-/* ── SWIPE DETECTION ──────────────────────────────────────────── */
+// Mobile touch swipe gestures
 let touchStartX = null, touchStartY = null;
 boardEl.addEventListener('touchstart', e => {
   touchStartX = e.touches[0].clientX;
@@ -437,7 +435,7 @@ boardEl.addEventListener('touchend', e => {
   touchStartX = null; touchStartY = null;
 }, { passive: true });
 
-/* ── INIT ─────────────────────────────────────────────────────── */
+// Initial setup on page load
 hiscore = parseInt(localStorage.getItem(LS_KEY) || '0', 10) || 0;
 hiscoreBoxEl.textContent = hiscore;
 showOverlay('start');

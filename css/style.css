@@ -1,7 +1,7 @@
-/* ── RESET & ROOT ───────────────────────────────────────────── */
+/* Reset default browser margins and box sizing */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── DARK THEME (default) ───────────────────────────────────── */
+/* Dark theme color variables */
 :root {
   --bg:         #080c14;
   --panel:      rgba(10, 16, 28, 0.85);
@@ -30,7 +30,7 @@
   --board-size: min(90vw, 90vh, 540px);
 }
 
-/* ── LIGHT THEME ─────────────────────────────────────────────── */
+/* Light theme color variables */
 [data-theme="light"] {
   --bg:         #f0f4f8;
   --panel:      rgba(255, 255, 255, 0.82);
@@ -72,7 +72,7 @@ html, body {
   transition: background 0.3s, color 0.3s;
 }
 
-/* ── ANIMATED BG ────────────────────────────────────────────── */
+/* Background grid pattern and glow effect */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -85,7 +85,7 @@ body::before {
   z-index: 0;
 }
 
-/* ── LAYOUT ─────────────────────────────────────────────────── */
+/* Main container layout */
 #app {
   position: relative;
   z-index: 1;
@@ -97,7 +97,7 @@ body::before {
   padding: 10px;
 }
 
-/* ── HEADER ─────────────────────────────────────────────────── */
+/* Title and subtitle */
 #header {
   display: flex;
   flex-direction: column;
@@ -122,7 +122,7 @@ body::before {
   text-transform: uppercase;
 }
 
-/* ── THEME SWITCHER ──────────────────────────────────────────── */
+/* Dark/Light mode toggle switch */
 #theme-toggle {
   position: fixed;
   top: 14px;
@@ -182,7 +182,7 @@ body::before {
   background: #fff;
 }
 
-/* ── SCOREBOARD ──────────────────────────────────────────────── */
+/* Current score and best score display */
 #scoreboard {
   display: flex;
   gap: 20px;
@@ -218,14 +218,14 @@ body::before {
   100% { transform: scale(1); }
 }
 
-/* ── BOARD WRAPPER ───────────────────────────────────────────── */
+/* Game board wrapper */
 #board-wrap {
   position: relative;
   width: var(--board-size);
   height: var(--board-size);
 }
 
-/* ── BOARD ───────────────────────────────────────────────────── */
+/* 18x18 grid board and shake animation */
 #board {
   width: 100%;
   height: 100%;
@@ -253,7 +253,7 @@ body::before {
   90%      { transform: translate(2px,-1px) rotate(.1deg); }
 }
 
-/* ── CELLS ───────────────────────────────────────────────────── */
+/* Grid cells, snake head, body, tail, and food */
 .cell {
   border-radius: var(--radius);
   background: var(--cell-empty);
@@ -309,7 +309,7 @@ body::before {
   50%       { transform: scale(1.22); box-shadow: 0 0 22px var(--food-glow), 0 0 50px rgba(255,77,109,0.5); }
 }
 
-/* ── FLOATING +1 ─────────────────────────────────────────────── */
+/* Floating +1 score popup animation */
 .float-score {
   position: absolute;
   font-family: 'Orbitron', sans-serif;
@@ -328,7 +328,7 @@ body::before {
   100% { opacity: 0; transform: translateY(-60px) scale(.9); }
 }
 
-/* ── OVERLAYS ────────────────────────────────────────────────── */
+/* Start, pause, and game over screens */
 .overlay {
   position: absolute; inset: 0;
   display: flex;
@@ -388,7 +388,7 @@ body::before {
 .overlay-score-box .label { font-size: .55rem; letter-spacing: .2em; color: var(--dim); }
 .overlay-score-box .val   { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
 
-/* ── BUTTONS ─────────────────────────────────────────────────── */
+/* Buttons and hover effects */
 .btn {
   font-family: 'Orbitron', sans-serif;
   font-size: .75rem;
@@ -425,7 +425,7 @@ body::before {
   box-shadow: 0 0 12px rgba(214,48,80,0.2);
 }
 
-/* ── CONTROLS BAR ────────────────────────────────────────────── */
+/* Pause button and game status badge */
 #controls-bar {
   display: flex;
   align-items: center;
@@ -445,7 +445,7 @@ body::before {
 #status-badge.playing { color: var(--accent); }
 #status-badge.paused  { color: var(--accent2); }
 
-/* ── TOUCH D-PAD ─────────────────────────────────────────────── */
+/* Touch controls for mobile */
 #dpad {
   display: none;
   flex-direction: column;
